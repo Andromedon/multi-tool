@@ -26,15 +26,11 @@ import { ConverterModel } from '../types/ConverterModel';
 
 const title = 'Converter';
 const rowStyle = {
-  marginBottom: '0.3rem',
+  margin: '0.5rem',
 };
 
 const targetAmountRowStyle = {
   minHeight: '56px',
-};
-
-const containerStyle = {
-  margin: '0.5rem 1rem 0.5rem 1rem',
 };
 
 const buttonStyle = {
@@ -114,7 +110,7 @@ const Converter = () => {
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <div className='container-fluid' style={containerStyle}>
+      <div className='container-fluid'>
         <div className='row' style={rowStyle}>
           <Card sx={{ minWidth: 275, background: '#d4eafd' }}>
             <CardContent>

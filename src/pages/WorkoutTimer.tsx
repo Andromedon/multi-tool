@@ -2,12 +2,8 @@ import { Button, Card, CardContent, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 const title = 'Worktout Timer';
 const rowStyle = {
-  marginBottom: '1rem',
+  margin: '0.5rem',
   textAlign: 'center' as const,
-};
-
-const containerStyle = {
-  margin: '1rem 1.5rem 1rem 1.5rem',
 };
 
 const buttonStyle = {
@@ -183,7 +179,7 @@ const WorkoutTimer = () => {
   if (!workoutActive) {
     return (
       <>
-        <div className='container-fluid' style={containerStyle}>
+        <div className='container-fluid'>
           <div className='row' style={rowStyle}>
             <Card sx={{ minWidth: 275, background: '#d4eafd' }}>
               <CardContent>
@@ -262,7 +258,7 @@ const WorkoutTimer = () => {
   } else {
     return (
       <>
-        <div className='container-fluid' style={containerStyle}>
+        <div className='container-fluid'>
           <audio id='alarm' src='alarm.mp3' />
           <div className='row' style={rowStyle}>
             <Card sx={{ minWidth: 275, background: '#e3f2e3' }}>
