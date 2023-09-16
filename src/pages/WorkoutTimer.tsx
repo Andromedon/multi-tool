@@ -10,27 +10,56 @@ const buttonStyle = {
   margin: '0.5rem',
 };
 
-const defaultNumberOfBreaks: number = 5;
+const iconRowStyle = {
+  margin: '0.5rem',
+  textAlign: 'center' as const,
+  minHeight: '5.5rem',
+};
+
+const dogImageStyle = {
+  height: '5rem',
+  width: 'auto',
+  margin: '0 0.5rem',
+};
+
+const defaultNumberOfSets: number = 6;
 const defaultBreakTime: number = 60;
 
 let wakeLock: any = null;
 
 const WorkoutTimer = () => {
-  const [numberOfBreakes, setNumberOfBreaks] = useState(defaultNumberOfBreaks);
+  const [numberOfSets, setNumberOfSets] = useState(defaultNumberOfSets);
   const [brakeTime, setBreakTime] = useState(defaultBreakTime);
+  const [numberOfSetsCompleted, setNumberOfSetsCompleted] = useState(0);
   const [workoutActive, setWorkoutActive] = useState(false);
   const [workoutFinished, setWorkoutFinished] = useState(false);
   const [countdownRunning, setCountdownRunning] = useState(false);
   const [counter, setCounter] = useState(60);
 
-  const handleNumberOfBreaksSub = () => {
-    if (numberOfBreakes > 1) {
-      setNumberOfBreaks((prevState) => prevState - 1);
+  const getCompletedSetsImages = () => {
+    let dogsImages = [];
+    for (let i = 0; i < numberOfSetsCompleted; i++) {
+      dogsImages.push(<img src='dog.png' alt='woof!' style={dogImageStyle} />);
+    }
+    return dogsImages;
+  };
+
+  const getSetsImages = () => {
+    let dogsImages = [];
+    for (let i = 0; i < numberOfSets; i++) {
+      dogsImages.push(<img src='dog.png' alt='woof!' style={dogImageStyle} />);
+    }
+    return dogsImages;
+  };
+
+  const handleNumberOfSetsSub = () => {
+    if (numberOfSets > 1) {
+      setNumberOfSets((prevState) => prevState - 1);
     }
   };
 
-  const handleNumberOfBreaksAdd = () => {
-    setNumberOfBreaks((prevState) => prevState + 1);
+  const handleNumberOfSetsAdd = () => {
+    setNumberOfSets((prevState) => prevState + 1);
   };
 
   const handleBreakTimeSub = () => {
@@ -49,11 +78,12 @@ const WorkoutTimer = () => {
   };
 
   const handleBreakStart = () => {
-    setNumberOfBreaks((prevState) => prevState - 1);
-    if (numberOfBreakes <= 0) {
-      setNumberOfBreaks(0);
+    if (numberOfSetsCompleted < numberOfSets - 1) {
+      setCountdownRunning(true);
+    } else {
+      setWorkoutFinished(true);
     }
-    setCountdownRunning(true);
+    setNumberOfSetsCompleted((prevState) => prevState + 1);
   };
 
   const handleBreakStop = () => {
@@ -61,16 +91,13 @@ const WorkoutTimer = () => {
     setCounter(brakeTime);
     stopVibration();
     stopAudio();
-
-    if (numberOfBreakes <= 0) {
-      setWorkoutFinished(true);
-    }
   };
 
   const handleNewWorkout = () => {
     setWorkoutActive(false);
     setWorkoutFinished(false);
-    setNumberOfBreaks(defaultNumberOfBreaks);
+    setNumberOfSets(defaultNumberOfSets);
+    setNumberOfSetsCompleted(0);
     setCounter(brakeTime);
   };
 
@@ -188,17 +215,15 @@ const WorkoutTimer = () => {
                     Number of sets:
                   </Typography>
                 </div>
-                <div className='row' style={rowStyle}>
-                  <Typography variant='h1' component='h3' sx={{ mb: 1 }}>
-                    {numberOfBreakes + 1}
-                  </Typography>
+                <div className='row' style={iconRowStyle}>
+                  {getSetsImages()}
                 </div>
                 <div className='row' style={rowStyle}>
                   <Button
                     size='large'
                     variant='contained'
                     style={buttonStyle}
-                    onClick={handleNumberOfBreaksSub}
+                    onClick={handleNumberOfSetsSub}
                   >
                     -
                   </Button>
@@ -206,7 +231,7 @@ const WorkoutTimer = () => {
                     size='large'
                     variant='contained'
                     style={buttonStyle}
-                    onClick={handleNumberOfBreaksAdd}
+                    onClick={handleNumberOfSetsAdd}
                   >
                     +
                   </Button>
@@ -265,13 +290,11 @@ const WorkoutTimer = () => {
               <CardContent>
                 <div className='row' style={rowStyle}>
                   <Typography variant='h5' component='h3' sx={{ mb: 1 }}>
-                    Sets left:
+                    Sets completed:
                   </Typography>
                 </div>
-                <div className='row' style={rowStyle}>
-                  <Typography variant='h1' component='h3' sx={{ mb: 1 }}>
-                    {numberOfBreakes + 1}
-                  </Typography>
+                <div className='row' style={iconRowStyle}>
+                  {getCompletedSetsImages()}
                 </div>
                 <div className='row' style={rowStyle}>
                   <Typography variant='h5' component='h3' sx={{ mb: 1 }}>
