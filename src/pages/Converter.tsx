@@ -327,22 +327,22 @@ const Converter = () => {
         <div className='row' style={buttonRowStyle}>
           <div style={buttonStyle}>
             <Button
-              type='submit'
-              size='large'
-              variant='contained'
-              onClick={handleConvert}
-            >
-              Convert
-            </Button>
-          </div>
-          <div style={buttonStyle}>
-            <Button
               size='large'
               variant='contained'
               color='error'
               onClick={handleReset}
             >
               Clear
+            </Button>
+          </div>
+          <div style={buttonStyle}>
+            <Button
+              type='submit'
+              size='large'
+              variant='contained'
+              onClick={handleConvert}
+            >
+              Convert
             </Button>
           </div>
         </div>

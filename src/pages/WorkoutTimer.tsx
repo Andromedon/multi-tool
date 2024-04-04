@@ -22,7 +22,7 @@ const dogImageStyle = {
   margin: '0 0.5rem',
 };
 
-const defaultNumberOfSets: number = 6;
+const defaultNumberOfSets: number = 5;
 const defaultBreakTime: number = 60;
 
 let wakeLock: any = null;
